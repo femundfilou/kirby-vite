@@ -1,7 +1,7 @@
 {
     "name": "femundfilou/kirby-vite",
     "description": "Use Vite Frontend Tooling in Kirby.",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "type": "kirby-plugin",
     "keywords": [
         "kirby-plugin"
