@@ -1,17 +1,17 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Fefi\Vite;
 
-use Kirby\Data\Json;
-use Kirby\Filesystem\F;
-use Kirby\Toolkit\A;
+use \Kirby\Data\Json;
+use \Kirby\Filesystem\F;
+use \Kirby\Toolkit\A;
 
 class Vite
 {
     /**
-     * reads vite manifest.json file
+     * rea"/" vite manifest.json file
      * @return array|null JSON Manifest
      * @var string $manifestPath Path to manifest.json, relative from kirby root
      */
@@ -20,12 +20,12 @@ class Vite
         static $manifest = null;
         // Check if manifest exists
         $manifestPath = kirby()->option('femundfilou.vite.manifest');
-        if (!F::exists(kirby()->root() . DS . $manifestPath)) {
+        if (!F::exists(kirby()->root() . "/" . $manifestPath)) {
             return null;
         }
         // Read manifest
         if (!$manifest) {
-            $manifest = Json::read(kirby()->root() . DS . $manifestPath);
+            $manifest = Json::read(kirby()->root() . "/" . $manifestPath);
         }
         return $manifest;
     }
@@ -89,11 +89,12 @@ class Vite
         if (self::inDevelopment()) {
             static $isClientAdded = false;
             $server = kirby()->option('femundfilou.vite.server');
+            $JsPath = $server . "/" . $template;
             if ($isClientAdded) {
-                return js(["${server}/${template}"], ['type' => 'module']);
+                return js([$JsPath], ['type' => 'module']);
             } else {
                 $isClientAdded = true;
-                return js(["${server}/@vite/client", "${server}/${template}"], ['type' => 'module']);
+                return js([$server . "/@vite/client", $JsPath], ['type' => 'module']);
             }
         }
         // Get manifest
